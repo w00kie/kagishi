@@ -10,8 +10,8 @@ import {
 import type { CharsetMode } from "../lib/charsets.ts";
 import { copyToClipboard } from "../lib/clipboard.ts";
 import { formatEntropy } from "../lib/entropy.ts";
-import { type OutputFormat, formatTokenOutput } from "../lib/format.ts";
-import { type TokenOptions, generateToken } from "../lib/token.ts";
+import { formatTokenOutput, type OutputFormat } from "../lib/format.ts";
+import { generateToken, type TokenOptions } from "../lib/token.ts";
 
 export async function runWizard(): Promise<number> {
   intro("kagishi  鍵師");

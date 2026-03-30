@@ -10,5 +10,5 @@ export function estimateEntropyBits(
 }
 
 export function formatEntropy(bits: number): string {
-  return `${bits.toFixed(bits >= 100 ? 0 : 1)} bits`;
+  return `${bits.toFixed(bits >= 100 ? 0 : 1)} bits of entropy`;
 }
