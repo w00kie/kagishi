@@ -1,5 +1,3 @@
-import { randomBytes } from "node:crypto";
-
 export function secureRandomString(length: number, alphabet: string): string {
   if (!Number.isInteger(length) || length <= 0) {
     throw new Error("Random length must be a positive integer.");
@@ -9,24 +7,34 @@ export function secureRandomString(length: number, alphabet: string): string {
     throw new Error("Alphabet must contain at least two characters.");
   }
 
+  if (alphabet.length > 256) {
+    throw new Error("Alphabet cannot contain more than 256 characters.");
+  }
+
+  if (new Set(alphabet).size !== alphabet.length) {
+    throw new Error("Alphabet characters must be unique.");
+  }
+
   const limit = Math.floor(256 / alphabet.length) * alphabet.length;
-  let output = "";
+  const output: string[] = [];
 
   while (output.length < length) {
-    const chunk = randomBytes(Math.max(length * 2, 32));
+    const remaining = length - output.length;
+    const chunk = new Uint8Array(Math.max(remaining * 2, 32));
+    crypto.getRandomValues(chunk);
 
     for (const byte of chunk) {
       if (byte >= limit) {
         continue;
       }
 
-      output += alphabet[byte % alphabet.length];
+      output.push(alphabet[byte % alphabet.length]);
 
       if (output.length === length) {
-        return output;
+        return output.join("");
       }
     }
   }
 
-  return output;
+  return output.join("");
 }

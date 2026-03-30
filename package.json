@@ -14,6 +14,7 @@
   },
   "files": ["src", "README.md", "LICENSE", "tsconfig.json"],
   "scripts": {
+    "dev": "bun run src/cli.ts",
     "test": "bun test",
     "check": "biome check . && bun test",
     "biome:check": "biome check .",
