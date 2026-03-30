@@ -17,16 +17,18 @@ Modern API keys are usually more than random blobs:
 
 ## Install
 
+The package name on npm is `kagishi-cli`, but it installs the `kagishi` command.
+
 ### Run with `bunx`
 
 ```bash
-bunx kagishi generate --prefix sk --env live
+bunx kagishi-cli generate --prefix sk --env live
 ```
 
 ### Install globally
 
 ```bash
-bun install -g kagishi
+bun install -g kagishi-cli
 kagishi generate --prefix whsec --env live --length 48
 ```
 
@@ -186,8 +188,8 @@ bun test
 
 This package is prepared as a Bun executable via the `bin` field and a Bun shebang entrypoint, making it suitable for:
 
-- `bunx kagishi`
-- global executable installs
+- `bunx kagishi-cli`
+- global installs that expose the `kagishi` command
 - future Homebrew packaging
 
 ## License

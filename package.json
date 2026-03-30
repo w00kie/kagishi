@@ -1,27 +1,28 @@
 {
-  "name": "kagishi",
+  "name": "kagishi-cli",
   "version": "0.1.0",
   "description": "A Bun-powered CLI for generating structured, provider-style API tokens.",
   "type": "module",
+  "author": "François Rejeté <francois@rejete.com>",
   "license": "MIT",
   "preferGlobal": true,
   "bin": {
     "kagishi": "./dist/cli.mjs"
   },
   "files": [
-    "src",
+    "dist",
     "README.md",
-    "LICENSE",
-    "tsconfig.json"
+    "LICENSE"
   ],
   "scripts": {
     "dev": "bun run src/cli.ts",
     "build": "obuild",
+    "prepack": "bun run build",
     "test": "bun test",
     "check": "biome check . && bun test",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
-    "prepare": "husky"
+    "prepare": "if command -v husky >/dev/null 2>&1; then husky; fi"
   },
   "dependencies": {
     "@clack/prompts": "^1.1.0"
@@ -40,6 +41,14 @@
     "secret",
     "security"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w00kie/kagishi.git"
+  },
+  "homepage": "https://github.com/w00kie/kagishi#readme",
+  "bugs": {
+    "url": "https://github.com/w00kie/kagishi/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
