@@ -1,0 +1,42 @@
+{
+  "name": "kagishi",
+  "version": "0.1.0",
+  "description": "A Bun-powered CLI for generating structured, provider-style API tokens.",
+  "type": "module",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "kagishi": "./src/cli.ts"
+  },
+  "exports": {
+    "./token": "./src/lib/token.ts",
+    "./format": "./src/lib/format.ts"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "test": "bun test",
+    "check": "bun test"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.10.1"
+  },
+  "keywords": [
+    "bun",
+    "cli",
+    "token",
+    "api-key",
+    "secret",
+    "security"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}
