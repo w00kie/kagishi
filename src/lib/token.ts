@@ -1,4 +1,4 @@
-import { getCharset, type CharsetMode } from "./charsets.ts";
+import { type CharsetMode, getCharset } from "./charsets.ts";
 import { estimateEntropyBits } from "./entropy.ts";
 import { secureRandomString } from "./random.ts";
 
@@ -31,10 +31,12 @@ export const DEFAULT_TOKEN_OPTIONS: TokenOptions = {
   separator: "_",
   charset: "alnum",
   includeId: false,
-  idLength: 8
+  idLength: 8,
 };
 
-export function generateToken(options: Partial<TokenOptions> = {}): TokenResult {
+export function generateToken(
+  options: Partial<TokenOptions> = {},
+): TokenResult {
   const resolved = { ...DEFAULT_TOKEN_OPTIONS, ...options };
   validateTokenOptions(resolved);
 
@@ -57,7 +59,10 @@ export function generateToken(options: Partial<TokenOptions> = {}): TokenResult 
     secret,
     secretLength: resolved.secretLength,
     idSuffix,
-    estimatedEntropyBits: estimateEntropyBits(resolved.secretLength, alphabet.length)
+    estimatedEntropyBits: estimateEntropyBits(
+      resolved.secretLength,
+      alphabet.length,
+    ),
   };
 }
 
@@ -65,7 +70,7 @@ export function validateTokenOptions(options: TokenOptions): void {
   const segments = [
     ["prefix", options.prefix],
     ["env", options.env],
-    ["separator", options.separator]
+    ["separator", options.separator],
   ] as const;
 
   if (!Number.isInteger(options.secretLength) || options.secretLength <= 0) {
@@ -82,16 +87,23 @@ export function validateTokenOptions(options: TokenOptions): void {
     }
   }
 
-  if (options.prefix.includes(options.separator) || options.env.includes(options.separator)) {
+  if (
+    options.prefix.includes(options.separator) ||
+    options.env.includes(options.separator)
+  ) {
     throw new Error("Prefix and env cannot contain the active separator.");
   }
 
   if (!/^[A-Za-z0-9_-]+$/.test(options.prefix)) {
-    throw new Error("Prefix must only contain URL-safe, shell-safe characters.");
+    throw new Error(
+      "Prefix must only contain URL-safe, shell-safe characters.",
+    );
   }
 
   if (!/^[A-Za-z0-9_-]+$/.test(options.env)) {
-    throw new Error("Environment must only contain URL-safe, shell-safe characters.");
+    throw new Error(
+      "Environment must only contain URL-safe, shell-safe characters.",
+    );
   }
 
   if (!/^[A-Za-z0-9_-]+$/.test(options.separator)) {

@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 
-import { copyToClipboard } from "./lib/clipboard.ts";
-import { formatTokenOutput } from "./lib/format.ts";
-import { generateToken } from "./lib/token.ts";
 import { renderHelp } from "./cli/help.ts";
 import { parseArgv } from "./cli/parse.ts";
 import { runWizard } from "./cli/wizard.ts";
+import { copyToClipboard } from "./lib/clipboard.ts";
+import { formatTokenOutput } from "./lib/format.ts";
+import { generateToken } from "./lib/token.ts";
 
 async function main() {
   const argv = Bun.argv.slice(2);
@@ -30,8 +30,8 @@ async function main() {
         separator: parsed.options.separator,
         charset: parsed.options.charset,
         includeId: parsed.options.includeId,
-        idLength: parsed.options.idLength
-      })
+        idLength: parsed.options.idLength,
+      }),
     );
 
     if (parsed.options.format === "json" && parsed.options.count > 1) {
@@ -40,9 +40,9 @@ async function main() {
           formatTokenOutput(result, {
             format: "json",
             variableName: parsed.options.variableName,
-            quiet: parsed.options.quiet
-          })
-        )
+            quiet: parsed.options.quiet,
+          }),
+        ),
       );
 
       console.log(JSON.stringify(payload, null, 2));
@@ -52,8 +52,8 @@ async function main() {
           formatTokenOutput(result, {
             format: parsed.options.format,
             variableName: parsed.options.variableName,
-            quiet: parsed.options.quiet
-          })
+            quiet: parsed.options.quiet,
+          }),
         );
       }
     }

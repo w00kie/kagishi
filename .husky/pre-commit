@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+files=$(git diff --cached --name-only --diff-filter=ACMR | tr '\n' ' ')
+
+if [ -z "$files" ]; then
+  exit 0
+fi
+
+bunx biome check --write --no-errors-on-unmatched $files
+status=$?
+
+if [ $status -ne 0 ]; then
+  exit $status
+fi
+
+git update-index --again

@@ -21,7 +21,7 @@ describe("generateToken", () => {
       env: "test",
       secretLength: 24,
       includeId: true,
-      idLength: 6
+      idLength: 6,
     });
 
     expect(result.token).toMatch(/^whsec_test_[A-Za-z0-9]{24}_[A-Za-z0-9]{6}$/);
@@ -32,7 +32,7 @@ describe("generateToken", () => {
   test("uses only the selected charset", () => {
     const result = generateToken({
       secretLength: 64,
-      charset: "hex"
+      charset: "hex",
     });
 
     expect(result.secret).toMatch(/^[0-9a-f]{64}$/);
@@ -43,10 +43,12 @@ describe("generateToken", () => {
       secretLength: 10,
       charset: "base32",
       includeId: true,
-      idLength: 8
+      idLength: 8,
     });
 
-    expect(result.estimatedEntropyBits).toBe(estimateEntropyBits(10, CHARSETS.base32.length));
+    expect(result.estimatedEntropyBits).toBe(
+      estimateEntropyBits(10, CHARSETS.base32.length),
+    );
   });
 });
 
@@ -55,14 +57,14 @@ describe("formatting", () => {
     const result = generateToken({
       prefix: "rk",
       env: "live",
-      secretLength: 12
+      secretLength: 12,
     });
 
     expect(
       formatTokenOutput(result, {
         format: "env",
-        variableName: "API_TOKEN"
-      })
+        variableName: "API_TOKEN",
+      }),
     ).toMatch(/^API_TOKEN=rk_live_[A-Za-z0-9]{12}$/);
   });
 
@@ -72,14 +74,14 @@ describe("formatting", () => {
       env: "test",
       secretLength: 16,
       includeId: true,
-      idLength: 4
+      idLength: 4,
     });
 
     const parsed = JSON.parse(
       formatTokenOutput(result, {
         format: "json",
-        variableName: "IGNORED"
-      })
+        variableName: "IGNORED",
+      }),
     );
 
     expect(parsed.prefix).toBe("pk");

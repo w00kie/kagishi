@@ -1,4 +1,7 @@
-export function estimateEntropyBits(length: number, alphabetSize: number): number {
+export function estimateEntropyBits(
+  length: number,
+  alphabetSize: number,
+): number {
   if (length <= 0 || alphabetSize <= 1) {
     return 0;
   }

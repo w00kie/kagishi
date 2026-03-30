@@ -8,7 +8,10 @@ export interface OutputOptions {
   quiet?: boolean;
 }
 
-export function formatTokenOutput(result: TokenResult, options: OutputOptions): string {
+export function formatTokenOutput(
+  result: TokenResult,
+  options: OutputOptions,
+): string {
   switch (options.format) {
     case "plain":
       return result.token;
@@ -24,10 +27,10 @@ export function formatTokenOutput(result: TokenResult, options: OutputOptions): 
           charset: result.charset,
           secretLength: result.secretLength,
           idSuffix: result.idSuffix ?? null,
-          estimatedEntropyBits: Number(result.estimatedEntropyBits.toFixed(2))
+          estimatedEntropyBits: Number(result.estimatedEntropyBits.toFixed(2)),
         },
         null,
-        2
+        2,
       );
   }
 }

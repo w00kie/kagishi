@@ -1,4 +1,4 @@
-import { isCharsetMode, type CharsetMode } from "../lib/charsets.ts";
+import { type CharsetMode, isCharsetMode } from "../lib/charsets.ts";
 import type { OutputFormat } from "../lib/format.ts";
 
 export interface ParsedArgs {
@@ -34,7 +34,7 @@ const DEFAULTS: ParsedArgs["options"] = {
   separator: "_",
   entropyBits: undefined,
   copy: false,
-  quiet: false
+  quiet: false,
 };
 
 export function parseArgv(argv: string[]): ParsedArgs {
@@ -46,7 +46,10 @@ export function parseArgv(argv: string[]): ParsedArgs {
         ? commandArg
         : "generate";
 
-  const args = command === "generate" && commandArg && !isCommand(commandArg) ? argv : argv.slice(1);
+  const args =
+    command === "generate" && commandArg && !isCommand(commandArg)
+      ? argv
+      : argv.slice(1);
   const options = { ...DEFAULTS };
   const positionals: string[] = [];
 
@@ -126,8 +129,17 @@ export function parseArgv(argv: string[]): ParsedArgs {
 
   if (options.entropyBits) {
     const alphabetSize =
-      options.charset === "alnum" ? 62 : options.charset === "base32" ? 32 : options.charset === "hex" ? 16 : 64;
-    options.length = Math.max(options.length, Math.ceil(options.entropyBits / Math.log2(alphabetSize)));
+      options.charset === "alnum"
+        ? 62
+        : options.charset === "base32"
+          ? 32
+          : options.charset === "hex"
+            ? 16
+            : 64;
+    options.length = Math.max(
+      options.length,
+      Math.ceil(options.entropyBits / Math.log2(alphabetSize)),
+    );
   }
 
   return { command, options, positionals };

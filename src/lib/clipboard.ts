@@ -1,4 +1,7 @@
-export function copyToClipboard(text: string): { ok: boolean; message: string } {
+export function copyToClipboard(text: string): {
+  ok: boolean;
+  message: string;
+} {
   const platform = process.platform;
 
   const commands =
@@ -6,14 +9,18 @@ export function copyToClipboard(text: string): { ok: boolean; message: string } 
       ? [["pbcopy"]]
       : platform === "win32"
         ? [["clip"]]
-        : [["wl-copy"], ["xclip", "-selection", "clipboard"], ["xsel", "--clipboard", "--input"]];
+        : [
+            ["wl-copy"],
+            ["xclip", "-selection", "clipboard"],
+            ["xsel", "--clipboard", "--input"],
+          ];
 
   for (const [cmd, ...args] of commands) {
     const result = Bun.spawnSync({
       cmd: [cmd, ...args],
       stdin: new TextEncoder().encode(text),
       stdout: "ignore",
-      stderr: "ignore"
+      stderr: "ignore",
     });
 
     if (result.exitCode === 0) {
@@ -21,5 +28,8 @@ export function copyToClipboard(text: string): { ok: boolean; message: string } 
     }
   }
 
-  return { ok: false, message: "Clipboard support is unavailable on this system." };
+  return {
+    ok: false,
+    message: "Clipboard support is unavailable on this system.",
+  };
 }
