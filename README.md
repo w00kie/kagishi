@@ -4,6 +4,8 @@
 
 It produces prefix-based, URL-safe, shell-safe secrets such as `sk_live_...`, `pk_test_...`, `whsec_live_...`, and `rk_live_...`, with production-friendly defaults and a guided zero-argument wizard.
 
+![Made with VHS](https://vhs.charm.sh/vhs-5oX5sWmaij7xNBdpC8LPj2.gif)
+
 ## Why it exists
 
 Modern API keys are usually more than random blobs:
