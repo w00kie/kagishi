@@ -14,7 +14,7 @@ import { formatTokenOutput, type OutputFormat } from "../lib/format.ts";
 import { generateToken, type TokenOptions } from "../lib/token.ts";
 
 export async function runWizard(): Promise<number> {
-  intro("kagishi  鍵師");
+  intro("kagishi  鍵師 - Generate structured, provider-style API tokens.");
 
   const preset = await requiredPrompt(
     select({
@@ -227,7 +227,7 @@ async function requiredText(
       defaultValue,
       placeholder,
       validate(value) {
-        if (!value.trim()) {
+        if (!value?.trim()) {
           return `${message} cannot be empty.`;
         }
       },
@@ -247,6 +247,10 @@ async function requiredNumber(
       defaultValue: String(defaultValue),
       placeholder,
       validate(raw) {
+        if (raw === undefined) {
+          return "Enter a positive integer.";
+        }
+
         const parsed = Number.parseInt(raw, 10);
         if (!Number.isInteger(parsed) || parsed <= 0) {
           return "Enter a positive integer.";

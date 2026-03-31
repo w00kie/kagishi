@@ -1,7 +1,7 @@
 export function renderHelp(): string {
   return `
 kagishi
-Generate structured, provider-style API tokens with Bun.
+Generate structured, provider-style API tokens.
 
 Usage:
   kagishi                 Launch the interactive wizard
